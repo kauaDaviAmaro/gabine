@@ -49,14 +49,14 @@
 
     &> :first-child {
         background-position: center;
-        background-size: 100%;
+        /* background-size: 100%; */
         background-repeat: no-repeat;
         background-image: url("../imgs/featureProducts/card1.png");
     }
 
     &> :last-child {
         background-position: center;
-        background-size: 100%;
+        /* background-size: 100%; */
         background-repeat: no-repeat;
         background-image: url("../imgs/featureProducts/card2.png");
     }

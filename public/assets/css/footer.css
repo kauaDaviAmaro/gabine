@@ -29,13 +29,17 @@ footer {
 
             & .links a {
                 color: var(--white-50);
-                margin: 0 16px;
+                margin: 0px 2vw;
             }
 
             & .content {
                 margin-top: 24px;
                 display: flex;
                 justify-content: space-between;
+
+                .social{
+                    color: white;
+                }
             }
 
             & .line {
@@ -76,22 +80,41 @@ footer {
         & .input {
             position: relative;
 
-            & input {
-                color: var(--white-50);
-                border: 1px solid #767A85;
-                border-radius: 40px;
+            & .text-button{
                 width: 100%;
                 height: 60px;
-                padding-left: 16px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #767A85;
+                border-radius: 40px;
                 background-color: #4B4B4B;
+
+                & input {
+                    color: var(--white-50);
+                    border: none;
+                    width: 80%;
+                    background-color: inherit;
+                    border-radius: inherit;
+
+                }
             }
 
-            & img {
-                position: absolute;
-                right: 16px;
-                top: 50%;
-                transform: translateY(50%);
+            & .round-background{
+                background-color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                & img {
+                    height: 24px;
+                    width: 24px;
+                }
             }
+
         }
     }
 
