@@ -1,7 +1,8 @@
 .promotion {
     position: relative;
     display: flex;
-    padding: 50px 10px 50px 100px;
+    justify-content: space-between;
+    padding: 4vw;
 
     color: var(--white-50);
 
@@ -19,13 +20,14 @@
     }
 
     & .promotion-content {
-        flex: 1.7;
+        flex: auto;
         z-index: 1;
     }
 
     & .promotion-image {
-        flex: 1;
+        flex: auto;
         z-index: 1;
+        max-width: fit-content;
     }
 
     & .countdown {
@@ -35,7 +37,7 @@
         margin: 40px 0;
 
         &>* {
-            padding-right: 70px;
+            padding-right: 10%;
             font-family: "Roboto", sans-serif;
             display: flex;
             flex-direction: column;
@@ -44,7 +46,8 @@
         }
 
         & .number {
-            font-size: 127px;
+            /* font-size: 127px; */
+            font-size: 7vw;
             font-weight: 700;
         }
 
@@ -54,6 +57,7 @@
     }
 
     & h3 {
+        max-width: 700px;
         margin-bottom: 16px;
     }
 
@@ -70,4 +74,16 @@
     & time-unit {
         animation: scroll 10s linear infinite;
     }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .promotion {
+        & .promotion-content {
+            h3{
+                font-size: 60px;
+            }
+        }
+    }
+
 }

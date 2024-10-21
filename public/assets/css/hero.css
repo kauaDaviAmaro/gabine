@@ -3,10 +3,13 @@
     padding: 0 128px;
     display: flex;
     justify-content: center;
+    align-items: end;
     gap: 40px;
 
     & .image {
         position: relative;
+        max-height: 612px;
+        max-width: 556px;
 
         & .bakground {
             z-index: -1;
@@ -100,6 +103,18 @@
     100% {
         transform: translateX(-200%);
     }
+}
+
+@media screen and (max-width: 1024px) {
+    .hero {
+    
+        & .information {
+            h1{
+                font-size: 80px;
+            }
+        }
+    }
+
 }
 
 @media screen and (max-width: 768px) {
