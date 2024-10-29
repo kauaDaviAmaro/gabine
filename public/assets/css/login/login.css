@@ -1,1 +1,115 @@
-footer
+.login {
+    min-height: 100vh;
+  }
+  
+body, html {
+    height: 100%; 
+    overflow: hidden; 
+}
+
+  .back-ground-left{
+    background-color: #EBEBEB;
+  }
+
+  .bg-image {
+    background-image: url("/public/assets/imgs/login/Fone.png");   
+    display: block;
+    background-size: cover;
+    background-position: center;
+  }
+
+  
+  .corner-image {
+    margin-left: 25%; 
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+}
+
+  .login-heading {
+    font-weight: 300;
+  }
+  
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+  #forgot-password{
+    text-decoration: none;
+    color: rgb(97, 94, 241);
+  }
+
+  #no-account{
+    font-weight: 600;
+  }
+  
+  .small{
+    text-decoration: none;
+    color: rgb(97, 94, 241);
+  }
+
+  .logo{
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 30px;
+  }
+
+  .login-title{
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 100px;
+  }
+  .login-title h3{
+    font-size: 7rem;
+    line-height: 85px;
+    font-weight: 700;
+  }
+
+  .login-head{
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    margin-bottom: 45px;
+  }
+  
+  .login-head h3{
+    font-weight: 700;
+  }
+
+  .btn-login-background {
+    font-family: 'Inter', sans-serif;
+    color: white;
+    background-color: black;
+    border-radius: 10px; 
+    border: none; 
+  }
+
+  .btn-back-backgound:hover {
+    background-color: #333; 
+  }
+
+  .input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    padding-left: 40px; 
+}
+
+.input-with-icon .icon {
+    position: absolute; 
+    top: 50%; 
+    left: 10px; 
+    transform: translateY(-50%); 
+}
+
+.input-with-icon .icon img {
+    width: 20px; 
+    height: 20px; 
+    vertical-align: middle; 
+}
+
+

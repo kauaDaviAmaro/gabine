@@ -1,11 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/login/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log-in</title>
 </head>
 <body>
-    
+    <div class="container-fluid ps-md-0">
+        <div class="row g-0">
+          <div class="d-none d-md-flex col-md-8 col-lg-8 back-ground-left">
+            <img src="assets/imgs/login/Fone.png" alt="Fone" class="corner-image">  
+            <img src="assets/imgs/login/Logo.png" alt="Logo Gabini" class="logo mb-3">     
+            <div class="login-title">
+              <h3>GABINI</h3>
+              <h3>HEADSET</h3>
+              <h3>STORE</h3>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <div class="login d-flex align-items-center py-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-9 col-lg-7 mx-auto">
+                    <div class="login-head">
+                      <h3>Bem Vindo</h3>
+                      <h5>Acesse sua conta:</h5>
+                    </div>
+                    
+                    <form>
+                      <div class="mb-3 input-with-icon">
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <span class="icon">
+                            <img src="assets/imgs/login/Email.png" alt="Email Icon">
+                        </span>
+                    </div>
+                    <div class="mb-3 input-with-icon">
+                        <input type="password" class="form-control" id="Password" placeholder="Senha">
+                        <span class="icon">
+                            <img src="assets/imgs/login/Cadeado.png" alt="Password Icon">
+                        </span>
+                    </div>
+                    
+      
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                        <label class="form-check-label" for="rememberPasswordCheck">
+                          Lembre-se de mim
+                        </label>
+                        <br> 
+                        <a id="forgot-password" href="">esqueceu a senha?</a>
+                      </div>
+      
+                      <div class="d-grid">
+                        <button class=" btn-lg btn-login mb-2 btn-login-background" type="submit">Login</button>
+                        <div class="text-center">
+                          <a id="no-account">Don't have an account?</a>
+                          <a class="small" href="#">Register</a>
+                        </div>
+                      </div>
+      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 </body>
 </html>
