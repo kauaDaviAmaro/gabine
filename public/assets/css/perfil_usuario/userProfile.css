@@ -1,0 +1,152 @@
+.profile-background {
+    width: 90%; 
+    max-width: 1300px; 
+    height: 80px;
+    background: linear-gradient(90deg, #011421 0%, #738188 55.37%, #E4EEEE 84.65%);
+    border-radius: 30px;
+    margin: 0 auto 2rem auto; 
+  
+    @media (max-width: 1200px) {
+      width: calc(100% - 50px); 
+    }
+  
+    @media (max-width: 768px) {
+      height: 60px;
+      width: calc(100% - 20px); 
+    }
+  }
+  
+  .profile-section {
+    background-color: white;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    max-width: 1200px; 
+  
+    @media (max-width: 768px) {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      padding: 10px;
+    }
+  
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+  
+      .avatar {
+        position: relative;
+        display: flex;
+        align-items: center;
+  
+        img {
+          background: linear-gradient(to right, #d1e8ff, #fff0d8);
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          margin-right: 15px;
+  
+          @media (max-width: 768px) {
+            width: 70px;
+            height: 70px;
+            margin-right: 10px;
+          }
+        }
+        .edit-icon-wrapper {
+          position: absolute;
+          bottom: -12px;
+          right: 11.5rem;
+          cursor: pointer;
+  
+          @media (max-width: 768px) {
+            right: 9.5rem;
+          }
+  
+          #edit-icon {
+            font-size: 20px;
+            color: #000;
+            background-color: rgb(226, 225, 225);
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          }
+        }
+  
+        h2 {
+          font-size: 24px;
+          margin: 0;
+  
+          @media (max-width: 768px) {
+            font-size: 20px;
+          }
+        }
+  
+        p {
+          color: #999;
+          margin-top: 5px;
+  
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+      }
+      .edit-button {
+        background-color: red;
+        color: white;
+        border: none;
+        margin-right: 2rem;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+  
+        @media (max-width: 768px) {
+          padding: 8px 15px;
+        }
+      }
+  
+      .edit-button.active {
+        background-color: #19742e;
+      }
+    }
+  }
+  
+  .save-button {
+    display: block;
+    margin-top: 2rem;
+    margin-left: auto;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 8px 15px;
+    }
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+  
