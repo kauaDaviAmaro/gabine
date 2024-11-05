@@ -1,0 +1,356 @@
+body {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .cadastro-container {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1900px; 
+  }
+  
+  .left-side {
+    flex: 1;
+    background-color: #ebe5e5;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  
+    .title-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+  
+      .logo {
+        width: 160px;
+        margin-bottom: 20px;
+      }
+  
+      .brand-title {
+        margin-left: 35%;
+        font-size: 6.5vw;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: -8%;
+      }
+  
+      .subtitle,
+      .store {
+        margin-left: 35%;
+        font-size: 6.5vw;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: -8%;
+        z-index: 100;
+      }
+    }
+  
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin-top: -22%;
+  
+      .img-fone {
+        width: 50vw;
+        max-width: none;
+        height: auto;
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+        margin-left: -40%;
+      }
+    }
+  }
+  
+  .right-section {
+    width: 50%;
+  }
+  
+  h1, h2 {
+    font-weight: bold;
+    color: black;
+    text-align: center;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  .registration-form {
+    padding: 20px;
+  
+    .form-section {
+      margin-bottom: 20px;
+  
+      h3 {
+        margin: 2rem 0 1rem;
+      }
+    }
+  
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  
+    .submit-btn {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 15px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #444;
+      }
+    }
+  }
+  
+  .profile-image-container {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .profile-image {
+    margin-top: 20px;
+    background: linear-gradient(to right, #d1e8ff, #fff0d8);
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+  }
+  
+  .profile-image-upload {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  video {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+  }
+  
+  .form-fields {
+    flex: 1;
+  }
+  
+  .image-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 20px;
+  
+    .upload-btn {
+      background-color: rgb(83, 83, 248);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+  
+      &:hover {
+        background-color: darkblue;
+      }
+    }
+  
+    .delete-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: darkred;
+      }
+    }
+  }
+  
+  #cameraModal {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 9999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-header {
+    position: relative; 
+    margin-bottom: 10px;
+  }
+  
+  #closeCameraIcon {
+    position: absolute; 
+    right: -1rem; 
+    background: none;  
+    border: none;    
+    cursor: pointer;  
+    color: #f44336;   
+    font-size: 24px; 
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #e53935; 
+    }
+  }
+  
+  video {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .camera-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  #takePhotoBtn {
+    border-radius: 10px;
+    background-color: #2196F3; 
+    color: #ffffff;
+  
+    &:hover {
+      background-color: #1976D2; 
+    }
+  }
+  
+  #savePhotoBtn {
+    border-radius: 10px;
+    background-color: #4CAF50; 
+    color: #ffffff;
+  
+    &:hover {
+      background-color: #45a049; 
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .cadastro-container {
+      flex-direction: column;
+    }
+  
+    .left-side {
+      padding: 20px;
+  
+      .title-container {
+        .brand-title {
+          padding-bottom: 6px;
+          font-size: 36px;
+        }
+  
+        .subtitle {
+          padding-bottom: 12px;
+          font-size: 28px;
+        }
+  
+        .store {
+          font-size: 24px;
+        }
+  
+        .image-container {
+          margin-top: 15px;
+  
+          .img-fone {
+            max-width: 60%;
+          }
+        }
+      }
+    }
+  
+    .right-section {
+      width: 100%;
+    }
+  
+    .registration-form {
+      padding: 10px;
+  
+      .form-row {
+        flex-direction: column;
+  
+        input, select {
+          margin-bottom: 10px;
+        }
+      }
+  
+      .submit-btn {
+        padding: 12px;
+      }
+    }
+  
+    .profile-image {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .profile-image-upload {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .image-actions {
+      flex-direction: column;
+      align-items: center;
+  
+      .upload-btn,
+      .delete-btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
