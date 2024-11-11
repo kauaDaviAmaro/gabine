@@ -10,29 +10,27 @@ dropbuttons.forEach(dropbtn => {
     dropdown.addEventListener("mouseleave", () => dropdown.classList.remove("show"));
 });
 
-const profileToggle = document.getElementById("profileDropdownToggle");
-const profileDropdown = document.querySelector(".profile-dropdown");
-let dropdownVisible = false;
-
-profileToggle.addEventListener("click", () => {
-    dropdownVisible = !dropdownVisible;
-    
-    if (dropdownVisible) {
-        profileDropdown.classList.add("show");
-        profileToggle.src = "assets/imgs/arrow-up-drop.png"; 
-    } else {
-        profileDropdown.classList.remove("show");
-        profileToggle.src = "assets/imgs/arrow-down-drop.png"; 
+document.getElementById('profileContainer').addEventListener('click', function (event) {
+    event.stopPropagation(); // Evita fechar o menu ao clicar nele
+    const dropdown = document.querySelector('.profile-dropdown');
+    const arrowIcon = document.getElementById('profileDropdownArrow');
+  
+    // Alterna visibilidade do dropdown e rotação da seta
+    dropdown.classList.toggle('show');
+    arrowIcon.classList.toggle('arrow-up');
+  });
+  
+  // Fecha o dropdown ao clicar fora dele
+  document.addEventListener('click', function (event) {
+    const dropdown = document.querySelector('.profile-dropdown');
+    const arrowIcon = document.getElementById('profileDropdownArrow');
+  
+    if (!document.getElementById('profileContainer').contains(event.target)) {
+      dropdown.classList.remove('show');
+      arrowIcon.classList.remove('arrow-up');
     }
-});
-
-document.addEventListener("click", (event) => {
-    if (!profileToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.classList.remove("show");
-        profileToggle.src = "assets/imgs/arrow-down-drop.png";
-        dropdownVisible = false;
-    }
-});
+  });
+  
 
 document.getElementById("edit-icon").addEventListener("click", () => {
     document.getElementById("profileImageInput").click();

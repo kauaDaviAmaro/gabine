@@ -24,7 +24,7 @@
             <div class="login d-flex align-items-center py-5">
               <div class="container col-lg-8">
                 <div class="row">
-                  <div class="col-md-9 col-lg-8 mx-auto">
+                  <div class="back-ground-right">
                     <div class="login-head">
                       <h3>Bem Vindo</h3>
                       <h5>Acesse sua conta:</h5>
@@ -33,36 +33,38 @@
                     <form id="loginForm" novalidate>
                       <div class="mb-3 input-with-icon">
                         <div class="icon">
-                            <img src="assets/imgs/login/Mail.jpg" alt="Email Icon">
+                            <img src="assets/imgs/login/email-icon.jpg" alt="Email Icon">
                         </div>
                         <input type="email" class="form-control py-3" id="email" placeholder="Email" required>
                         <div class="invalid-feedback">Por favor, insira um email válido.</div>
-                    </div>
-                    <div class="mb-3 input-with-icon">
-                        <div class="icon">
-                            <img src="assets/imgs/login/Lock.jpg" alt="Password Icon">
+                      </div>
+
+                      <div class="mb-3 input-with-icon">
+                          <div class="icon">
+                              <img src="assets/imgs/login/cadeado-icon.jpg" alt="Password Icon">
+                          </div>
+                          <input type="password" class="form-control py-3" id="Password" placeholder="Senha" required>
+                          <div class="invalid-feedback">Por favor, insira sua senha.</div>
+                          <button type="button" id="togglePassword" class="btn">
+                            <img src="assets/imgs/login/olho.png" alt="Mostrar senha" id="eyeIcon">
+                        </button>
+                      </div>                                     
+                      <div class="remember-forgetPass mb-3">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                          <label>
+                            Lembre-se de mim
+                          </label>
+                          <br> 
                         </div>
-                        <input type="password" class="form-control py-3" id="Password" placeholder="Senha" required>
-                        <div class="invalid-feedback">Por favor, insira sua senha.</div>
-                        <button type="button" id="togglePassword" class="btn">
-                          <img src="assets/imgs/login/olho.png" alt="Mostrar senha" id="eyeIcon">
-                      </button>
-                    </div>                                     
-      
-                      <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                        <label>
-                          Lembre-se de mim
-                        </label>
-                        <br> 
-                        <a id="forgot-password" href="">esqueceu a senha?</a>
+                        <a id="forgot-password" href="">Esqueceu a senha?</a>
                       </div>
       
                       <div class="d-grid">
                         <button class=" btn-lg btn-login mb-2 btn-login-background" type="submit">Login</button>
                         <div class="text-center">
-                          <a id="no-account">Don't have an account?</a>
-                          <a class="small" href="signup_page.html">Register</a>
+                          <a id="no-account">Não possui uma conta?</a>
+                          <a class="register-link" href="signup_page.html">Register</a>
                         </div>
                       </div>
       
