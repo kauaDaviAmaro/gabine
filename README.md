@@ -2,6 +2,8 @@
 
 **Gabini Headset Store** é um e-commerce que oferece uma ampla variedade de headsets, proporcionando uma experiência de usuário envolvente com animações e estilizações modernas. O objetivo do projeto é criar uma interface intuitiva e visualmente atraente, utilizando tecnologias da web para uma experiência de navegação fluida.
 
+## figma link - [Figma](https://www.figma.com/design/3ajvk7ppmcz1yQwgYLshL8/LP-UNIMAR---EFICAZ-(Copy)?node-id=2009-470&node-type=frame&t=21qOtj6jp7QTEd48-0)
+
 ### Demonstração
 
 ![Demonstração](media/demo.gif)
