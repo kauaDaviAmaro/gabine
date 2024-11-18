@@ -4,7 +4,7 @@ import MultistepForm from '@/components/MultistepForm.vue';
 import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
 import type { AxiosResponse } from 'axios';
-import { onBeforeUnmount, ref } from 'vue';
+import { onBeforeUnmount, ref, type Ref } from 'vue';
 import eye from '@/assets/images/icons/eye.webp';
 import eyeSlash from '@/assets/images/icons/eye-slash.webp';
 import router from '@/router';
@@ -35,7 +35,7 @@ type SignUpParametersType = {
   maritalStatus: number;
   scholarship: number;
   password: string;
-  profilePicture: BinaryData;
+  profilePicture: string;
 }
 
 const userSignUp: SignUpParametersType = {
@@ -49,82 +49,51 @@ const userSignUp: SignUpParametersType = {
   maritalStatus: -99,
   scholarship: -99,
   password: '',
-  profilePicture: new Blob()
+  profilePicture: ''
 }
 
-const webcamRef = ref<HTMLVideoElement | null>(null);
-const stream = ref<MediaStream | null>(null);
-const canvasRef = ref<HTMLCanvasElement | null>(null);
+const phone: Ref<string> = ref('');
+const cpf: Ref<string> = ref('');
+const profilePicture: Ref<string> = ref('');
+const fileInput = ref(null);
 
-const startWebcam = async () => {
-  try {
-    stream.value = await navigator.mediaDevices.getUserMedia({ video: true });
-    if (webcamRef.value && stream.value) {
-      webcamRef.value.srcObject = stream.value;
-    }
-  } catch (error) {
-    console.warn("Câmera não encontrada, usando vídeo simulado.");
-    if (webcamRef.value) {
-      webcamRef.value.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"; // Caminho para um vídeo local
-      webcamRef.value.loop = true;
-      webcamRef.value.play();
-    }
-  }
-};
-
-const captureImage = () => {
-  if (webcamRef.value && canvasRef.value) {
-    const canvas = canvasRef.value;
-    const context = canvas.getContext("2d");
-
-    if (context) {
-      // Define o tamanho do canvas para coincidir com o vídeo
-      canvas.width = webcamRef.value.videoWidth;
-      canvas.height = webcamRef.value.videoHeight;
-
-      // Desenha o quadro atual do vídeo no canvas
-      context.drawImage(webcamRef.value, 0, 0, canvas.width, canvas.height);
-
-      // Converte o conteúdo do canvas para Blob e salva a imagem
-      canvas.toBlob((blob) => {
-        if (blob) {
-          saveImage(blob);
-        }
-      }, "image/png");
-    }
-  }
-};
-
-const stopWebcam = () => {
-  if (stream.value) {
-    stream.value.getTracks().forEach((track) => track.stop());
-    stream.value = null;
-  }
-  if (webcamRef.value) {
-    webcamRef.value.srcObject = null;
-  }
-  webcamRef.value = null;
-};
-
-onBeforeUnmount(() => {
-  stopWebcam();
-});
-
-const submit = () => {
+const submit = async () => {
   const loading = useLoadingStore();
   const alert = useAlertStore();
 
   try {
     loading.setLoading(true);
 
-    const signUpResult = api.post('users', userSignUp);
+    userSignUp.phone = phone.value;
+    userSignUp.cpf = cpf.value;
+
+    await api.post('users', userSignUp);
+
+    const token = await api.post('Auth/signIn', {
+      email: userSignUp.email,
+      password: userSignUp.password
+    });
+
+    localStorage.setItem('AUTH_TOKEN', token.data);
+
+    const formData = new FormData();
+
+    const profilePictureInput = document.getElementById('profilePictureInput') as HTMLInputElement;
+
+    if (!profilePictureInput.files?.length) {
+      const image = await (await fetch(`https://placehold.co/200/1E1E1E/FFFFFF?text=${userSignUp.name[0]}`)).blob();
+      formData.append('profilePicture', new File([image], `profilePicture.svg`));
+    } else {
+      formData.append('profilePicture', profilePictureInput.files![0]);
+    }
+
+    await api.post('users/profilePicture', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
     alert.showAlert('User registered successfully', 'success');
 
     loading.setLoading(false);
 
     router.push({ name: 'signin' });
-
   } catch (error) {
     loading.setLoading(false);
 
@@ -133,6 +102,22 @@ const submit = () => {
     alert.showAlert('Error while signing up', 'error');
   }
 }
+const onFileChange = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      profilePicture.value = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+const triggerFileInput = () => {
+  const input = document.getElementById('profilePictureInput') as HTMLInputElement;
+  if (input) input.click();
+};
 </script>
 
 <template>
@@ -176,7 +161,7 @@ const submit = () => {
                 <label for="scholarship">Scholarship</label>
                 <select name="scholarship" id="scholarship" v-model="userSignUp.scholarship" required
                   class="needs-validation">
-                  <option>Select</option>
+                  <option value="">Select</option>
                   <option :value="0">None</option>
                   <option :value="1">Bachelor</option>
                   <option :value="2">Master</option>
@@ -184,8 +169,9 @@ const submit = () => {
               </div>
               <div class="col">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" id="phone" v-model="userSignUp.phone" placeholder="(xx) xxxxx-xxxx"
-                  required class="needs-validation">
+                <input type="text" name="phone" id="phone" v-model="phone" placeholder="(xx) xxxxx-xxxx" required
+                  class="needs-validation"
+                  @input="phone = phone.replace(/[^0-9]/g, '').replace(/(\d{2})(\d{5})(\d{4})/g, '($1) $2-$3').substring(0, 15)">
               </div>
             </div>
             <div class="row">
@@ -219,8 +205,9 @@ const submit = () => {
             <div class="row">
               <div class="col">
                 <label for="cpf">CPF</label>
-                <input type="text" name="cpf" id="cpf" v-model="userSignUp.cpf" placeholder="xxx.xxx.xxx-xx" required
-                  class="needs-validation">
+                <input type="text" name="cpf" id="cpf" v-model="cpf" placeholder="xxx.xxx.xxx-xx" required
+                  class="needs-validation"
+                  @input="cpf = cpf.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4').substring(0, 14)">
               </div>
               <div class="col">
                 <label for="marital-status">Marital Status</label>
@@ -263,17 +250,17 @@ const submit = () => {
           </div>
         </template>
         <template #step-4>
-          <div class="webcam-container">
-            <!-- <video ref="webcamRef" autoplay playsinline>
-              Camera
-            </video> -->
-            <img src="../assets/images/image.png" alt="">
-            <canvas ref="canvasRef" style="display: none;"></canvas>
-            <div class="btns">
-              <div class="btn start" @click="startWebcam">Iniciar Webcam</div>
-              <div class="btn capture" @click="captureImage">Capturar Imagem</div>
-              <div class="btn stop" @click="stopWebcam">Parar Webcam</div>
+          <div class="step">
+            <h1>Profile Picture</h1>
+            <div class="profilePicture">
+              <img
+                :src="profilePicture ? profilePicture : `https://placehold.co/200/1E1E1E/FFFFFF?text=${userSignUp.name[0]}`"
+                alt="Profile" />
+              <div class="edit" @click="triggerFileInput">
+                Editar
+              </div>
             </div>
+            <input id="profilePictureInput" type="file" accept="image/*" @change="onFileChange" style="display: none" />
           </div>
         </template>
       </MultistepForm>
@@ -282,22 +269,6 @@ const submit = () => {
 </template>
 
 <style scoped>
-.webcam-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 80px;
-}
-
-video {
-  margin: 3rem 0;
-  border: 2px solid #4CAF50;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
-
 .btns {
   justify-content: center;
   display: flex;
@@ -402,6 +373,7 @@ video {
 }
 
 .row {
+  margin: 1rem 0;
   display: flex;
   flex-direction: row;
 }
@@ -421,8 +393,24 @@ video {
   background-color: var(--white-50);
 }
 
-.webcam-container {
+.profilePicture {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.profilePicture img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
 }
 </style>

@@ -13,6 +13,7 @@ const loadingStore = useLoadingStore();
 
 <style scoped>
 .loading {
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;

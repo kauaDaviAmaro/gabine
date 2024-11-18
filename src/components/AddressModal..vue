@@ -2,6 +2,7 @@
 import api from '@/api';
 import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
+import axios from 'axios';
 import { ref } from 'vue';
 
 const address = ref({
@@ -33,6 +34,24 @@ const submit = async () => {
     useLoadingStore().setLoading(false);
 
     useAlertStore().showAlert('Error while creating address', 'error');
+  }
+}
+
+const buscarEnderecoPorCep = async () => {
+  if (address.value.zipCode.length === 9) {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${address.value.zipCode}/json/`);
+      if (response.data && !response.data.erro) {
+        address.value.street = response.data.logradouro;
+        address.value.neighborhood = response.data.bairro;
+        address.value.city = response.data.localidade;
+        address.value.state = response.data.uf;
+      } else {
+        useAlertStore().showAlert('CEP not found', 'error');
+      }
+    } catch (error) {
+      useAlertStore().showAlert('Error fetching address', 'error');
+    }
   }
 }
 </script>
@@ -77,9 +96,10 @@ const submit = async () => {
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="zip-code">Zip code</label>
-            <input type="text" name="zip-code" id="zip-code" v-model="address.zipCode" placeholder="Zip code" required
-              class="needs-validation" @input="address.zipCode = address.zipCode.replace(/\D/g, '').substr(0, 8)">
+            <label for="zip-code">CEP</label>
+            <input type="text" name="zip-code" id="zip-code" v-model="address.zipCode" placeholder="01001-000" required
+              class="needs-validation" @blur="buscarEnderecoPorCep"
+              @input="address.zipCode = address.zipCode.replace(/\D/g, '').replace(/(\d{5})(\d{3})/g, '$1-$2').substr(0, 9)">
           </div>
         </div>
       </div>

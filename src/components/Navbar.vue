@@ -4,6 +4,11 @@ import type { AxiosResponse } from 'axios';
 import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import AddressModal from './AddressModal..vue';
+import useCartStorage from '@/stores/CartStorage';
+
+const cart = useCartStorage();
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL?.replace(/\/api$/, '');
 
 const isLoggedIn = ref(localStorage.getItem('AUTH_TOKEN') !== null);
 
@@ -70,9 +75,9 @@ onMounted(() => {
       <RouterLink to="/">
         Home
       </RouterLink>
-      <a href="#">
+      <RouterLink to="/products">
         SALE
-      </a>
+      </RouterLink>
       <a href="#">
         BUNDLE & SAVE
       </a>
@@ -107,46 +112,56 @@ onMounted(() => {
         SIGN UP FOR FREE
       </RouterLink>
     </div>
-    <div class="profile" v-else>
-      <div class="links">
-        <div class="dropdown-wrapper">
-          <a href="#" class="dropbtn profileDropbtn">
-            <span class="profileImageWrapper">
-              <img class="profileImage" :src="`https://picsum.photos/50`"
-                alt="">
-              {{ user.name }}
-            </span>
-            <img src="../assets/images/icons/arrow-down.webp" alt="arrow">
-          </a>
-          <div class="dropdown profileDropdown">
-            <div class="info">
-              <img :src="`https://picsum.photos/50`" alt="">
-              <div class="user-info">
-                <h3>{{ user.name }}</h3>
-                <span>{{ user.email }}</span>
-              </div>
-            </div>
-            <RouterLink to="/profile" class="settings">
-              <img src="../assets/images/icons/settings.png" alt=""> Settings
-            </RouterLink>
-            <div class="addresses">
-              <h3><img src="../assets/images/icons/address.png" alt="address">Addresses</h3>
-              <div class="address" v-for="address in addresses" :key="address.id">
-                <div class="address-info" @click="addresses.map(address => address.isDefault = false); address.isDefault = true">
-                  <span v-if="address.isDefault" class="default">
-                    <img src="../assets/images/icons/check.png" alt="check">
-                  </span>
-                  <span>{{ address.street }}</span>
+    <div class="profileArea" v-else>
+      <div class="profile">
+        <div class="links">
+          <div class="dropdown-wrapper">
+            <a href="#" class="dropbtn profileDropbtn">
+              <span class="profileImageWrapper">
+                <img class="profileImage" :src="`${backendUrl}/${user.profilePicture}`"
+                  alt="" style="height: 50px;width: 50px;object-fit: cover;">
+                {{ user.name }}
+              </span>
+              <img src="../assets/images/icons/arrow-down.webp" alt="arrow">
+            </a>
+            <div class="dropdown profileDropdown">
+              <div class="info">
+                <img :src="`${backendUrl}/${user.profilePicture}`" style="height: 50px;width: 50px;object-fit: cover  ;" alt="">
+                <div class="user-info">
+                  <h3>{{ user.name }}</h3>
+                  <span>{{ user.email }}</span>
                 </div>
               </div>
-              <a @click="showAddressModal = true" class="add-address">+ Add Address</a>
+              <RouterLink to="/profile" class="settings">
+                <img src="../assets/images/icons/settings.png" alt=""> Settings
+              </RouterLink>
+              <div class="addresses">
+                <h3><img src="../assets/images/icons/address.png" alt="address">Addresses</h3>
+                <div class="address" v-for="address in addresses" :key="address.id">
+                  <div class="address-info" @click="addresses.map(address => address.isDefault = false); address.isDefault = true">
+                    <span v-if="address.isDefault" class="default">
+                      <img src="../assets/images/icons/check.png" alt="check">
+                    </span>
+                    <span>{{ address.street }}</span>
+                  </div>
+                </div>
+                <a @click="showAddressModal = true" class="add-address">+ Add Address</a>
+              </div>
+              <a @click="logout" class="logout">
+                <img src="../assets/images/icons/signOut.png" alt="sign out">
+                Logout
+              </a>
             </div>
-            <a @click="logout" class="logout">
-              <img src="../assets/images/icons/signOut.png" alt="sign out">
-              Logout
-            </a>
           </div>
         </div>
+      </div>
+      <div class="cart-button">
+        <RouterLink to="/cart" class="cart-link">
+          <img src="../assets/images/icons/cart-regular-24.png" alt="cart" />
+          <span class="cart-quantity" v-if="!cart.isEmpty">
+            {{ cart.quantity }}
+          </span>
+        </RouterLink>
       </div>
     </div>
   </nav>
@@ -155,7 +170,35 @@ onMounted(() => {
 </template>
 
 <style>
+.profileArea {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-link .cart-quantity {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--blue);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
 .navbar {
+  z-index: 999999;
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -239,7 +282,7 @@ onMounted(() => {
 .profileDropbtn {
   width: 300px;
   border-radius: 10px;
-  height: 50px;
+  height: 60px;
   background-color: #f7f7f7;
 
   display: flex;
@@ -331,6 +374,7 @@ onMounted(() => {
   height: 40px;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 768px) {
   .navbar .links {

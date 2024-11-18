@@ -9,6 +9,9 @@ import eye from '@/assets/images/icons/eye.webp';
 import eyeSlash from '@/assets/images/icons/eye-slash.webp';
 import AddressEdit from '@/components/AddressEdit.vue';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL?.replace(/\/api$/, '');
+
+
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 
@@ -145,6 +148,53 @@ const getAddresses = async () => {
   }
 }
 
+const profilePicture = ref('');
+
+const onFileChange = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      profilePicture.value = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+
+    sendProfilePicture();
+  }
+};
+
+const sendProfilePicture = async () => {
+  const loading = useLoadingStore();
+  const alert = useAlertStore();
+
+  try {
+    loading.setLoading(true);
+
+    const profilePictureInput = document.getElementById('profilePictureInput') as HTMLInputElement;
+
+    const formData = new FormData();
+    formData.append('profilePicture', profilePictureInput.files![0]);
+
+    const imageUrl = await api.post('users/profilePicture', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+
+    user.value.profilePicture = imageUrl.data;
+
+    alert.showAlert('Profile picture changed successfully', 'success');
+
+    loading.setLoading(false);
+  } catch (error) {
+    loading.setLoading(false);
+
+    alert.showAlert('Error while editing', 'error');
+  }
+}
+
+const triggerFileInput = () => {
+  const input = document.getElementById('profilePictureInput') as HTMLInputElement;
+  if (input) input.click();
+};
+
 onBeforeMount(async () => {
   const loading = useLoadingStore();
   const alert = useAlertStore();
@@ -174,11 +224,15 @@ onBeforeMount(async () => {
   <div class="edit">
     <div class="profile">
       <div class="image">
-        <img :src="`https://picsum.photos/200?random=${Math.floor(Math.random() * 100)}`" alt="Profile Image">
+        <img :src="profilePicture === '' ? `${backendUrl}/${user.profilePicture}` : profilePicture" alt="Profile">
+        <div class="editBtn" @click="triggerFileInput">
+          Picture
+        </div>
+        <input id="profilePictureInput" type="file" accept="image/*" @change="onFileChange" style="display: none" />
       </div>
       <div class="wrap-email-name">
-        <span class="name">Name</span>
-        <span class="email">Email</span>
+        <span class="name">{{ user.name }}</span>
+        <span class="email">{{ user.email }}</span>
       </div>
     </div>
 
@@ -313,7 +367,7 @@ onBeforeMount(async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2rem 5rem;
+  margin: 2rem 5rem 4rem 5rem;
 }
 
 .edit-button {
@@ -336,14 +390,24 @@ onBeforeMount(async () => {
 }
 
 .image {
+  text-align: center;
   margin-right: 1rem;
-  border-radius: 50%;
-  overflow: hidden;
+  width: 90px;
   height: 90px;
+  object-fit: cover;
+}
+
+.editBtn {
+  border: 1px solid gray;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
 .image img {
   width: 100%;
+  border-radius: 50%;
   height: 100%;
   object-fit: cover;
 }
