@@ -41,6 +41,10 @@ const removeFromCart = (id: string) => {
   border-bottom: 1px solid var(--white-600);
 }
 
+.cartCard h3 {
+  font-size: 32px;
+}
+
 .cartCard img {
   width: 300px;
   height: 300px;

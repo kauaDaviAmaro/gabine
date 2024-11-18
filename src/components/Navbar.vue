@@ -69,7 +69,7 @@ onMounted(() => {
 <template>
   <nav class="navbar">
     <div class="brand">
-      <img src="../assets/images/Logo.webp" alt="Logo da Gabini">
+      <img src="../assets/images/logo.webp" alt="Logo da Gabini">
     </div>
     <div class="links">
       <RouterLink to="/">
@@ -196,7 +196,7 @@ onMounted(() => {
 }
 
 .navbar {
-  z-index: 999999;
+  z-index: 33;
   position: sticky;
   top: 0;
   display: flex;

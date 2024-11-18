@@ -31,7 +31,14 @@ export default class ProductService {
     return await api.get(`/product/${id}`)
   }
 
-  static async uploadProductImage(id: string, imageUrl: string): Promise<AxiosResponse<Product>> {
-    return await api.put(`/product/${id}/image`, { imageUrl })
+  static async uploadProductImage(id: string, image: HTMLInputElement): Promise<AxiosResponse<Product>> {
+    const formData = new FormData();
+    formData.append('image', image.files[0]);
+
+    return await api.post(`/product/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   }
 }

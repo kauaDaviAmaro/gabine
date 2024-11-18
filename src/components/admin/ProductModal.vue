@@ -4,6 +4,8 @@ import type { Product } from '@/models/Products';
 import CategoryService from '@/services/CategoryService';
 import type { Category } from '@/models/Category';
 
+const baseUrl = import.meta.env.VITE_BACKEND_URL?.replace(/\/api$/, '');
+
 const { isEditing, product } = defineProps({
   isEditing: {
     type: Boolean,
@@ -28,54 +30,58 @@ const modalProduct = ref<Product>({
   category: '',
 });
 
+const category: Ref<Array<Category>> = ref([]);
+
+const getCategories = async (): Promise<void> => {
+  const response = await CategoryService.getCategories();
+  category.value = response.data;
+};
+
+const imagem: Ref<File | null> = ref(null);
+const imagePreview: Ref<string | null> = ref(null);
+
+const handleImageUpload = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0] || null;
+  if (file) {
+    imagem.value = file;
+    imagePreview.value = URL.createObjectURL(file);
+    modalProduct.value.imageUrl = file.name; // Optionally store the file name
+  } else {
+    imagePreview.value = null;
+  }
+};
+
 watch(
   () => product,
   (newProduct) => {
     modalProduct.value = newProduct
       ? { ...newProduct }
       : {
-        id: '',
-        name: '',
-        description: '',
-        price: 0,
-        stockQuantity: 0,
-        imageUrl: '',
-        quantity: 0,
-        category: '',
-      };
+          id: '',
+          name: '',
+          description: '',
+          price: 0,
+          stockQuantity: 0,
+          imageUrl: '',
+          quantity: 0,
+          category: '',
+        };
+
+    // Set image preview when editing
+    imagePreview.value = newProduct != null ? baseUrl + newProduct.imageUrl : null;
   },
   { immediate: true }
 );
 
 const save = () => {
   if (modalProduct.value.name.trim() === '') return;
-  emit('save', modalProduct.value, document.getElementById('imageInput') as HTMLInputElement);
+  modalProduct.value.id = product?.id || '';
+  emit('save', modalProduct.value, document.getElementById('fileInput') as HTMLInputElement);
 };
-
-const category: Ref<Array<Category>> = ref([]);
-
-const getCategories = async (): Promise<void> => {
-  const response = await CategoryService.getCategories();
-  category.value = response.data;
-}
-
-const imagem: Ref<File | null> = ref(null); // Ref para armazenar o arquivo da imagem
-const imagePreview: Ref<string | null> = ref(null); // Ref para armazenar a URL de pré-visualização
-
-const handleImageUpload = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0] || null;
-  if (file) {
-    imagem.value = file;
-    imagePreview.value = URL.createObjectURL(file); // Gera URL para pré-visualização
-    modalProduct.value.imageUrl = file.name; // Opcional: define o nome do arquivo como URL
-  } else {
-    imagePreview.value = null;
-  }
-};
-
 
 onMounted(getCategories);
 </script>
+
 
 <template>
   <div class="modal">

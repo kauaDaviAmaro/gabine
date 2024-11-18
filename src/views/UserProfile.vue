@@ -282,9 +282,9 @@ onBeforeMount(async () => {
         <select class="needs-validation" id="marital-status" name="marital-status" v-model="user.maritalStatus" required
           :disabled="!edit">
           <option value="">Selecione</option>
-          <option value="0">Single</option>
-          <option value="1">Married</option>
-          <option value="2">Divorced</option>
+          <option :value="0">Single</option>
+          <option :value="1">Married</option>
+          <option :value="2">Divorced</option>
         </select>
       </div>
     </div>

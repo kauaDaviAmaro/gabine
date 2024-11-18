@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Product } from '@/models/Products';
+import type { Category } from '@/models/Category';
 import { defineProps, defineEmits } from 'vue';
 
 defineProps({
-  products: {
-    type: Array as () => Product[],
+  categories: {
+    type: Array as () => Category[],
     required: true,
   },
 });
@@ -17,19 +17,17 @@ defineEmits(['edit', 'delete']);
     <thead>
       <tr>
         <th>Name</th>
-        <th>Price</th>
-        <th>Category</th>
+        <th>Description</th>
         <th style="width: 20%;">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="product in products" :key="product.id">
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.category.name }}</td>
+      <tr v-for="category in categories" :key="category.id">
+        <td>{{ category.name }}</td>
+        <td>{{ category.description }}</td>
         <td class="actions">
-          <button @click="$emit('edit', product)">Edit</button>
-          <button @click="$emit('delete', product.id)">Delete</button>
+          <button @click="$emit('edit', category)">Edit</button>
+          <button @click="$emit('delete', category.id)">Delete</button>
         </td>
       </tr>
     </tbody>

@@ -50,10 +50,10 @@ const cart = useCartStorage();
   padding: 20px;
   border-radius: 20px;
 
-  & .img {
-    width: 100%;
+  & .img img {
+    width: 400px;
     height: 400px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 20px;
     margin-bottom: 20px;
   }

@@ -8,6 +8,7 @@ import ProductsView from '@/views/ProductsView.vue';
 import CartView from '@/views/CartView.vue';
 import ProductDetailView from '@/views/ProductDetailView.vue';
 import AdminProductsView from '@/views/AdminProductsView.vue';
+import AdminCategoriesView from '@/views/AdminCategoriesView.vue';
 
 
 const router = createRouter({
@@ -58,6 +59,11 @@ const router = createRouter({
       path: '/admin/products',
       name: 'adminProducts',
       component: AdminProductsView,
+    },
+    {
+      path: '/admin/categories',
+      name: 'adminCategories',
+      component: AdminCategoriesView,
     }
   ],
 });

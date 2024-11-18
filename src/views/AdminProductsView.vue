@@ -27,11 +27,12 @@ const openEditModal = (product: Product) => {
   modalVisible.value = true;
 };
 
-const saveProduct = async (product: Product,) => {
+const saveProduct = async (product: Product, image: HTMLInputElement) => {
   product.CategoryId = product.category;
   const action = isEditing.value ? ProductService.updateProduct : ProductService.createProduct;
-  await action(product);
-  await ProductService.uploadProductImage(product.id, product.imageUrl);
+  const response = await action(product);
+  product.id = response.data.id;
+  await ProductService.uploadProductImage(product.id, image);
   modalVisible.value = false;
   fetchProducts();
 };
@@ -45,11 +46,64 @@ onMounted(fetchProducts);
 </script>
 
 <template>
-  <div>
-    <h1>Admin Products</h1>
-    <button @click="openAddModal">Add Product</button>
+  <div class="container">
+    <div class="tabs">
+      <RouterLink to="/admin/products">Products</RouterLink>
+      <RouterLink to="/admin/categories">Categories</RouterLink>
+    </div>
+    <div class="header">
+      <h1>Products</h1>
+      <button @click="openAddModal">Add Product</button>
+    </div>
     <ProductList :products="products" @edit="openEditModal" @delete="deleteProduct" />
     <ProductModal v-if="modalVisible" :isEditing="isEditing" :product="currentProduct" @close="modalVisible = false"
       @save="saveProduct" />
   </div>
 </template>
+
+<style scoped>
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+}
+
+.tabs a.router-link-active {
+  background-color: #0077cc;
+  color: #fff;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: normal;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container {
+  padding: 20px;
+}
+</style>
