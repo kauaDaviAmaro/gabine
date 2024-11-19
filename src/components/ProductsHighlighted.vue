@@ -171,7 +171,6 @@ onMounted(() => {
         align-items: center;
         margin-bottom: 32px;
 
-        font-family: Inter;
         font-size: 20px;
         font-style: normal;
         font-weight: 400;

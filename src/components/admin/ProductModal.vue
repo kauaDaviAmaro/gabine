@@ -129,7 +129,7 @@ onMounted(getCategories);
                 accept="image/*" />
             </div>
             <div v-if="imagePreview" class="image-preview">
-              <img :src="imagePreview" alt="Image Preview" />
+              <img :src="imagePreview" alt="Preview" />
             </div>
           </div>
         </div>
