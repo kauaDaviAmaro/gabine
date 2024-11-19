@@ -112,12 +112,12 @@ onMounted(() => {
       </p>
       <form novalidate @submit.prevent="sendLogin">
         <div class="input-group">
-          <img src="../assets/images/icons/mail.webp" alt="mail">
+          <img src="../assets/images/icons/Mail.webp" alt="mail">
           <input class="needs-validation" type="string" placeholder="Email Address or Username" required
             title="Please enter your email or username" v-model="userLogin.email">
         </div>
         <div class="input-group">
-          <img src="../assets/images/icons/lock.webp" alt="lock">
+          <img src="../assets/images/icons/Lock.webp" alt="lock">
           <input class="needs-validation" :type="showPassword ? 'text' : 'password'" placeholder="Password"
             title="Please enter your password" v-model="userLogin.password" required pattern=".{2,}">
           <img class="eye" :src="showPassword ? eyeSlash : eye" alt="eye" aria-hidden="true" @click="togglePassword">

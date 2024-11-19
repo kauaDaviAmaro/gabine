@@ -44,10 +44,10 @@ const userSignUp: SignUpParametersType = {
   email: '',
   phone: '',
   birthDate: '',
-  gender: -99,
+  gender: 0,
   cpf: '',
-  maritalStatus: -99,
-  scholarship: -99,
+  maritalStatus: 0,
+  scholarship: 0,
   password: '',
   profilePicture: ''
 }
@@ -81,7 +81,7 @@ const submit = async () => {
     const profilePictureInput = document.getElementById('profilePictureInput') as HTMLInputElement;
 
     if (!profilePictureInput.files?.length) {
-      const image = await (await fetch(`https://placehold.co/200/1E1E1E/FFFFFF?text=${userSignUp.name[0]}`)).blob();
+      const image = await (await fetch(`https://placehold.co/200/736f6f/FFFFFF?text=${userSignUp.name[0]}`)).blob();
       formData.append('profilePicture', new File([image], `profilePicture.svg`));
     } else {
       formData.append('profilePicture', profilePictureInput.files![0]);
@@ -135,7 +135,7 @@ const triggerFileInput = () => {
     </div>
     <div class="register">
       <h1>
-        Wellcome
+        Welcome
       </h1>
       <p>
         Sign up for GABINI Headset's store and tune up your life!
@@ -161,10 +161,10 @@ const triggerFileInput = () => {
                 <label for="scholarship">Scholarship</label>
                 <select name="scholarship" id="scholarship" v-model="userSignUp.scholarship" required
                   class="needs-validation">
-                  <option value="">Select</option>
-                  <option :value="0">None</option>
-                  <option :value="1">Bachelor</option>
-                  <option :value="2">Master</option>
+                  <option value="0" disabled selected hidden>Select your scholarship</option>
+                  <option :value="1">None</option>
+                  <option :value="2">Bachelor</option>
+                  <option :value="3">Master</option>
                 </select>
               </div>
               <div class="col">
@@ -195,10 +195,10 @@ const triggerFileInput = () => {
               <div class="col">
                 <label for="gender">Gender</label>
                 <select name="gender" id="gender" v-model="userSignUp.gender" required class="needs-validation">
-                  <option value="">Select</option>
-                  <option :value="0">Male</option>
-                  <option :value="1">Female</option>
-                  <option :value="2">Other</option>
+                  <option value="0" disabled selected hidden>Select your gender</option>
+                  <option :value="1">Male</option>
+                  <option :value="2">Female</option>
+                  <option :value="3">Other</option>
                 </select>
               </div>
             </div>
@@ -213,11 +213,11 @@ const triggerFileInput = () => {
                 <label for="marital-status">Marital Status</label>
                 <select name="marital-status" id="marital-status" v-model="userSignUp.maritalStatus" required
                   class="needs-validation">
-                  <option value="">Select</option>
-                  <option :value="0">Single</option>
-                  <option :value="1">Married</option>
-                  <option :value="2">Divorced</option>
-                  <option :value="3">Widowed</option>
+                  <option value="0" disabled selected hidden>Select social status</option>
+                  <option :value="1">Single</option>
+                  <option :value="2">Married</option>
+                  <option :value="3">Divorced</option>
+                  <option :value="4">Widowed</option>
                 </select>
               </div>
             </div>
@@ -385,10 +385,11 @@ const triggerFileInput = () => {
 
 .col input,
 .col select {
+  height: 40px;
   margin: 0.5rem 0;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: 1px solid #E4EEEE;
+  border-radius: 10px;
+  border: 1px solid #EEEEEE;
   outline: none;
   background-color: var(--white-50);
 }

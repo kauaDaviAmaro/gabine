@@ -48,8 +48,8 @@ td {
 }
 
 th {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #EEEEEE;
+  color: black;
 }
 
 tr:hover {

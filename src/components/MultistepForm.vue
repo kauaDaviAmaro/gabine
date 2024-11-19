@@ -78,7 +78,7 @@ const nextStep = async (steps: number) => {
 }
 
 .progress-bar {
-  background: repeating-linear-gradient(-120deg, #4CAF50 0, #4CAF50 25px, #fff 0, #fff 30px);
+  background: repeating-linear-gradient(-120deg, #736f6f 0, #736f6f 25px, #fff 0, #fff 30px);
   background-size: 50px 50px;
   animation: barberpole 10s infinite linear;
   height: 20px;
@@ -103,7 +103,7 @@ form {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: black;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -115,9 +115,21 @@ button {
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
+
+  &:hover{
+    border: 1px solid black;
+    background-color: rgb(75, 75, 75);
+  }
 }
 
 .back {
-  background-color: #f44336;
+  border: 1px solid black;
+  background-color: #FFFF;
+  color: black;
+
+  &:hover{
+    background-color: rgb(25, 25, 25);
+    color: #FFFF;
+  }
 }
 </style>

@@ -74,11 +74,19 @@ onMounted(fetchProducts);
   padding: 10px;
   border-radius: 4px;
   background-color: #f7f7f7;
+
+  &:hover{
+    border: 1px solid black;
+  }
 }
 
 .tabs a.router-link-active {
   background-color: #0077cc;
   color: #fff;
+
+  &:hover{
+    background-color: #7cbff0;
+  }
 }
 
 h1 {
@@ -101,6 +109,10 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
+  &:hover{
+    background-color: #7cbff0;
+  }
 }
 
 .container {

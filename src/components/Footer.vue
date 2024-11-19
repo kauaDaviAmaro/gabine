@@ -71,7 +71,7 @@
                     <div class="text-button">
                         <input type="text" placeholder="Enter your email">
                         <div class="round-background">
-                            <img src="../assets/images/icons/arrow-right-black.svg" alt="Arrow">
+                            <img src="../assets/images/icons/arrow-right-black.webp" alt="Arrow">
                         </div>
                     </div>
                 </div>
