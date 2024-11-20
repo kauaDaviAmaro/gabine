@@ -67,7 +67,6 @@ watch(
           category: '',
         };
 
-    // Set image preview when editing
     imagePreview.value = newProduct != null ? baseUrl + newProduct.imageUrl : null;
   },
   { immediate: true }

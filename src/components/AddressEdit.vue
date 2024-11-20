@@ -165,10 +165,6 @@ form button:disabled {
   background-color: #ccc;
 }
 
-form .col label {
-  margin-bottom: 5px;
-}
-
 h3 {
   margin-bottom: 10px;
   line-height: normal;

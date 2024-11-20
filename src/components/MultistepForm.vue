@@ -14,7 +14,6 @@ const validateForm = (form) => {
 
   const inputs = form.querySelectorAll('.needs-validation');
   inputs.forEach(input => {
-    const parentElement = input.parentElement as any;
     if (!input.checkValidity()) {
       input.classList.remove('valid');
       input.classList.add('invalid');

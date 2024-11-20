@@ -16,20 +16,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { useRoute } from 'vue-router'
-// import { useProductStore } from '@/stores/product'
-// import type { Product } from '@/models/Products'
-
-// const route = useRoute()
-// const productStore = useProductStore()
-// const product = productStore.getProductById(route.params.id as string) as Product
-
-// function addToCart(product: Product) {
-//   productStore.addToCart(product)
-// }
-</script>
-
 <style scoped>
 .product-detail {
   display: flex;
