@@ -59,7 +59,7 @@ const cart = useCartStorage();
   }
 
   & .title {
-    font-size: 36px;;
+    font-size: 36px;
     font-weight: 600;
     margin-bottom: 10px;
   }

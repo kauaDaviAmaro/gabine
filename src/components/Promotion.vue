@@ -117,7 +117,6 @@ onMounted(() => {
         }
 
         & .number {
-            /* font-size: 127px; */
             font-size: 7vw;
             font-weight: 700;
         }
